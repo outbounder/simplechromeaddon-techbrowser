@@ -103,7 +103,7 @@
 				$.getJSON(saveurl, function(response){
 					$(".addDialog", _self).loading(false);
 					if(response.indexOf("OK") != -1)
-						_self.close();
+						window.close();
 					else
 						_self.showErrorTip(response);
 				});
