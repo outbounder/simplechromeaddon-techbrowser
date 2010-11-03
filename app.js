@@ -3,8 +3,8 @@ var app = {
 	ownerFB : null,
 	ownerGoogle : null,
 	endpoint : "http://api-techbrowser.appspot.com/",
-	googleAppKey : "",
-	facebookAppKey: '',
+	googleAppKey : "0",
+	facebookAppKey: '0',
 	
 	requestUserLogin : function() {
 		var loginDialog = Component.fromPath("component/login");
@@ -86,7 +86,7 @@ var app = {
 
 FB.init({appId: app.facebookAppKey, status: true, cookie: true, xfbml: true});
 Component.overrideCurrent();
-app.hookToSocialLogins();
+//app.hookToSocialLogins();
 
 window.addEventListener("load", windowLoaded, false);
 function windowLoaded() {

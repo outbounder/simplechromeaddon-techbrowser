@@ -6,8 +6,6 @@
     "default_icon": "icon.png"
   },
   "permissions": [
-  	"http://api.flickr.com/",
-  	"http://localhost:8080/",
   	"http://api-techbrowser.appspot.com/",
   	"tabs"
   ],
