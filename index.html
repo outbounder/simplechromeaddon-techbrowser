@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Techbrowser Powered Add</title>
+		<link href="css/reset.css" rel="stylesheet" type="text/css"  />
+		<link href="css/index.css" rel="stylesheet" type="text/css" />
+		
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
+		<link href="css/jquery.loading.1.6.css" rel="stylesheet" type="text/css"  />
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+		
+		<script type="text/javascript" src="libs/jquery/loading.16.4/jquery.loading.1.6.4.js"></script>
+		
+		<script src="libs/component.min.js"></script>
+	</head>
+
+	<body class="body">
+		<script type="component" source="entriesCanvas.html"></script>
+		<script type="component" source="inputBox.html" ></script>
+		
+		<script src="appContext.js"></script>
+		<script>
+			Component.process(document.body);
+			
+			window.addEventListener("load", function() {
+				chrome.tabs.getSelected(null, function(tab) {
+					
+					_self.inputBox.setLoading(true);
+					appContext.getTags(tab.url, function(response){
+						_self.inputBox.setLoading(false);
+						if(response.length > 0)
+							_self.inputBox.setTags(response);
+					});
+					
+					$("#inputbox")[0].setValue(tab.url);
+					$("#inputbox")[0].setMode("input");
+				});
+			}, false);
+			
+			var _self = this;
+			var appContext = new AppContext();
+			
+			this.inputBox = $("#inputbox")[0];
+			
+			this.inputBox.on("autocomplete", function(event){
+				appContext.getTag(event.request,event.callback);
+			});
+			
+			this.inputBox.on("save", function(entry){
+				appContext.saveEntry(entry.url, entry.tags, function(response){
+					if(response != "OK") {
+						entry.errorHandler("failed to save entry due "+response);
+						return;
+					}
+					
+					window.close();
+				})
+			});
+			
+		</script>
+	</body>
+</html>

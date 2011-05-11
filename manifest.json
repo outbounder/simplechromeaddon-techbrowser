@@ -1,16 +1,13 @@
 {
-  "name": "Simple-ChromeExt-Techbrowser",
-  "version": "0.0.1",
+  "name": "TechbrowserAdder",
+  "version": "0.0.2",
   "description": "save links to techbrowser",
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
   "permissions": [
   	"http://api-techbrowser.appspot.com/",
   	"tabs"
   ],
   "browser_action": {
-    "default_icon": "icon.png",
-    "popup": "popup.html"
+    "default_icon": "add_down.png",
+    "popup": "index.html"
   }
 }
